@@ -5,11 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #333;
+  color: #333;
+  direction: ltr;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  font-size: 1em;
+  background-color: #333;
+  color: #333;
 }
 .iconB{
   transition: all 0.3s ease-in-out !important;
