@@ -18,8 +18,15 @@ import CalendarPage from "./components/calender/page.tsx";
 import TodoSamplePage from "./components/todosample/page.tsx";
 import CollapsibleTable from "./components/table/page2.tsx";
 import FeedbackWidget from "./components/feedback/page.tsx";
-// import FooterPage from "./components/feedback/page.tsx";
+import { ThemeProvider} from '@mui/material/styles';
 import FooterPage from "./components/footer/page.tsx";
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 function handleClick(event) {
   event.preventDefault();
   console.info('You clicked a breadcrumb.');
@@ -128,6 +135,7 @@ function AppLayout() {
 
 function App() {
   return (
+    
     <div className="App">
       <Routes >
         <Route path="/*" element={<AppLayout />} />

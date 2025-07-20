@@ -42,6 +42,7 @@ function SelectActionCard() {
         padding: 3,
         backgroundColor: '#f9fafb',
       }}
+      className="dark:bg-gray-800 dark:text-white"
     >
       {cards.map((card, index) => (
         <Card
@@ -60,6 +61,7 @@ function SelectActionCard() {
             flexDirection: 'column',
             justifyContent: 'center',
           }}
+          className="dark:bg-gray-800 dark:text-white"
         >
           <CardActionArea sx={{ height: '100%', px: 2 }}>
             <Box display="flex" alignItems="center" gap={2}>

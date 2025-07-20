@@ -1,20 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState ,useReducer,useEffect } from 'react';
+import reducer from "../reducers/page.tsx"
 
 export default function TodoSamplePage() {
     const [tasks, setTasks] = useState([]);
     const [input, setInput] = useState('');
 
+    useEffect(() => {
+        dispatch({ type: 'get' });
+    },[]);
+    const initialState = {
+        tasks: [],
+        input: ''
+    };
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
     const addTask = () => {
-        if (input.trim() !== '') {
-            setTasks([...tasks, input.trim()]);
-            setInput('');
+        if (state.input.trim()) {
+            dispatch({
+                type: 'ADD_TASK',
+                payload: state.input.trim()
+            });
+            localStorage.setItem('tasks', JSON.stringify([...state.tasks, state.input.trim()]));
         }
     };
 
     const deleteTask = (index) => {
-        const newTasks = [...tasks];
-        newTasks.splice(index, 1);
-        setTasks(newTasks);
+        dispatch({ type: 'DELETE_TASK', payload: index });
+        localStorage.setItem('tasks', JSON.stringify(state.tasks.filter((_, i) => i !== index)));
+    };
+
+    const handleChange = (e) => {
+        dispatch({ type: 'SET_INPUT', payload: e.target.value });
     };
 
     return (
@@ -32,8 +49,8 @@ export default function TodoSamplePage() {
 
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '20px' }}>
                 <input
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    value={state.input}
+                    onChange={handleChange}
                     placeholder="Add a task..."
                     style={{
                         padding: '10px',
@@ -61,7 +78,7 @@ export default function TodoSamplePage() {
                 scrollbarColor: '#888 #f1f1f1',
                 marginTop: '10px'
             }}>
-                {tasks.map((task, index) => (
+                {state.tasks.map((task, index) => (
                     <li key={index} style={{
                         backgroundColor: '#f9f9f9',
                         padding: '10px',
